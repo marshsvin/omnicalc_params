@@ -15,7 +15,8 @@ end
 def pmt
 @pv = params["present_value"].to_f
 @num_yrs = params["number_of_years"].to_f
-@rate = params["basis_points"].to_f/100
+@basis_points = params["basis_points"].to_f
+@rate = @basis_points/100
 @pmt = @rate/1200*@pv/(1-(1+@rate/1200)**(-1*@num_yrs*12))
 render("calculations/pmt.html.erb")
 end
@@ -67,7 +68,7 @@ def random_it
 @min_num = params[:min_num].to_f
 @max_num = params[:max_num].to_f
 @random_it = rand(@max_num-@min_num)+@min_num
-@url = "/random/results?min_num="+@min_num.to_s+"&max_num="+@max_num.to_s
+@url = "/random/results?min_num="+@min_num.to_i.to_s+"&max_num="+@max_num.to_i.to_s
 render("calculations/random_it.html.erb")
 end
 
